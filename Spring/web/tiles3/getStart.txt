@@ -1,0 +1,53 @@
+模板
+模块化的布局方式,部分替换
+
+##模板页
+```
+<%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href='<s:url value="/resources/style.css"/>' />
+</head>
+<div class="header">
+	<t:insertAttribute name="header" />
+</div>
+<div class="menu">
+	<t:insertAttribute name="menu" />
+</div>
+<div class="body">
+	<t:insertAttribute name="body" />
+</div>
+<div class="footer">
+	<t:insertAttribute name="footer" />
+</div>
+</body>
+</html>
+```
+tiles.xml
+```<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC    
+	   "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="base" template="/WEB-INF/layout/page.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/layout/header.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/layout/common_menu.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/layout/footer.jsp" />
+	</definition>
+
+	<!-- 通过name来指定 要映射视图名 被Spring调用 -->
+	<definition name="home" extends="base">
+		<put-attribute name="title" value="Home"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/home.jsp"></put-attribute>
+	</definition>
+</tiles-definitions>
+```

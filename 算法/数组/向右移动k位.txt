@@ -1,0 +1,37 @@
+思路1:
+每次向右移动一次，直到移动到k次
+算法复杂度为O(N^2)
+
+思路2：
+数组移动，有两段的顺序是不变的
+如abcd1234，向右移动4为就变成了1234abcd 
+1234和abcd是不变的
+把这两段看成两个整体，右移k为就是把数组两部分交换一下。 算法复杂度为O(N)，
+1.逆序abcd ->dcba
+2.逆序1234 ->4321
+3.全部逆序 ->1234abcd
+思路2实现
+构建逆序函数
+```
+	reverse(int[]nums,int start,int end)
+	{
+		for(;start<end;start++,end--)
+		{
+			int temp = nums[start];
+			nums[start] = nums[end];
+			nums[end] = temp;
+		}
+	}
+```
+构建位移函数
+```
+	rotate(int[]nums,int k)
+	{
+		int length = nums.length;
+		k%=l;
+		reverse(nums,0,length-1-k);
+		reverse(nums,1ength-k,length-1);
+		reverse(nums,0,length-1);
+	}
+
+```
